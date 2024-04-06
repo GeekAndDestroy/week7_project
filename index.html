@@ -8,11 +8,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<script src=""./assets/scripts/index.js defer></script>
+<script src="./assets/scripts/index.js" defer></script>
 <title>Country Info</title>
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar navbar-fixed-top">
         <div class="container">
             <div class="row">
                 <div class="col-3">
@@ -26,11 +26,20 @@
     <main>
         <video id="background-video" autoplay loop muted poster="./assets/images/earth-still.jpg">
             <source src="./assets/videos/earth.mp4" type="video/mp4">
-          </video>
+        </video>
 
-
-
-          
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="col-6 country-form">
+                        <form id="find-country-form">
+                            <input class="form-control m-3" name="country" placeholder="Enter Country" id="countryInput">
+                            <button id="find-country-input" type="submit" class="form-control btn btn-dark m-3">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
 

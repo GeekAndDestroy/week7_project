@@ -10,7 +10,11 @@ nav {
     background-color: black;
     height: 75px;
     font-family: cursive;
-    position: fixed ;
+    /* position: fixed ;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px; */
 }
 
 a {
@@ -33,7 +37,19 @@ a:hover {
     z-index: -1;
   }
 
-  footer {
+.country-form{
+    align-self: center;
+}
+
+.is-invisible{
+    display:none;
+}
+
+.is-visible{
+    display:block;
+}
+
+footer {
     background-color: black;
     height: 75px;
     font-family: cursive;
