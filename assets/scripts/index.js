@@ -11,7 +11,6 @@ function pageLoader(){
     // Get the find country form and add submit event listener
     let findCountriesForm = document.getElementById('find-country-form');
     findCountriesForm.addEventListener('submit', e => findCountry(e));
-
 }
 
 // Event Listener to get country data and display on the page
@@ -30,7 +29,6 @@ function findCountry(e){
         .then( res => res.json() )
         .then( data => displayCountry(data) )
         .catch( err => console.error(err) )
-
 }
 
 
@@ -128,7 +126,6 @@ function displayCountry(data){
         mapButton.textContent = 'View on Google Maps';
         mapButton.classList.add('btn', 'btn-warning', 'mt-3', 'map-button');
         mapButton.addEventListener('click', () => {
-            // Open Google Maps with the country's capital location
             window.open(`https://www.google.com/maps/place/${country.capital[0]}`, '_blank');
         });
         countryColumn.appendChild(mapButton);

@@ -17,7 +17,7 @@ nav {
     background-color: black;
     height: 75px;
     font-family: "Permanent Marker", cursive; 
-    font-size: xx-large;
+
 }
 
 a {
@@ -28,9 +28,8 @@ a:hover {
     color: gray
 }
 
-
 main {
-    margin-top: 80px; /* Adjust this value based on your navbar height */
+    margin-top: 80px; 
 }
 
 #background-video {
@@ -43,7 +42,7 @@ main {
     top: 0;
     bottom: 0;
     z-index: -1;
-  }
+}
 
 #countryFlag {
     width: 50%;
@@ -66,8 +65,6 @@ input{
     align-self: center;
 }
 
-
-
 .info {
     background-color: rgba(0, 0, 0, 0.75);
     padding: 100px;
@@ -80,8 +77,6 @@ input{
 ul {
     list-style-type: none;
 }
-
-
 
 footer {
     background-color: black;
