@@ -21,7 +21,7 @@ function findCountry(e){
     let countryName = document.getElementById('countryInput')?.value;
     
     // Build the URL for the API request
-    const url = `https://restcountries.com/v3.1/name/${countryName}`
+    const url = `https://restcountries.com/v3.1/name/${countryName}?fullText=true`
     console.log(url);
 
     // Make the HTTP get request to the above url and log the data
