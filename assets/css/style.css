@@ -2,19 +2,22 @@
     margin: 0;
 }
 
+.permanent-marker-regular {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
 body {
     margin-bottom:50px;
+    color: white;
 }
 
 nav {
     background-color: black;
     height: 75px;
-    font-family: cursive;
-    /* position: fixed ;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin-bottom: 0px; */
+    font-family: "Permanent Marker", cursive; 
+    font-size: xx-large;
 }
 
 a {
@@ -23,6 +26,11 @@ a {
 
 a:hover {
     color: gray
+}
+
+
+main {
+    margin-top: 80px; /* Adjust this value based on your navbar height */
 }
 
 #background-video {
@@ -37,17 +45,43 @@ a:hover {
     z-index: -1;
   }
 
+#countryFlag {
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    
+}
+
+#coa {
+    width: 30%;
+    height: auto;
+    padding: 20px;
+}
+
+input{
+    text-align: center;
+}
+
 .country-form{
     align-self: center;
 }
 
-.is-invisible{
-    display:none;
+
+
+.info {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 100px;
+    margin: 75px;
+    border: solid 5px rgb(60, 60, 60);
+    border-radius: 120px;
+    text-align: center;
 }
 
-.is-visible{
-    display:block;
+ul {
+    list-style-type: none;
 }
+
+
 
 footer {
     background-color: black;

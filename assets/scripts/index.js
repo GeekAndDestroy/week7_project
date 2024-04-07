@@ -14,7 +14,7 @@ function pageLoader(){
 
 }
 
-// Event Listener to get brewery data and display on the page
+// Event Listener to get country data and display on the page
 function findCountry(e){
     e.preventDefault(); // will prevent the page from refreshing with form data as query params
     // console.log(e);
@@ -22,7 +22,7 @@ function findCountry(e){
     let countryName = document.getElementById('countryInput')?.value;
     
     // Build the URL for the API request
-    const url = ` https://restcountries.com/v3.1/name/${countryName}`
+    const url = `https://restcountries.com/v3.1/name/${countryName}`
     console.log(url);
 
     // Make the HTTP get request to the above url and log the data
@@ -33,71 +33,149 @@ function findCountry(e){
 
 }
 
-// Callback function for findBreweries that will accept brewery data and insert into the display table
+
+// Callback function for findCountry that will accept country data and insert into a formatted container
 function displayCountry(data){
-    // Get the table from the HTML
-    let table = document.getElementById('brewery-table');
+    if (Array.isArray(data) && data.length > 0) {
+        const country = data[0]; 
 
-    // Clear out the table of any current data
-    table.innerHTML = '';
-    // Remove any previous or next buttons
-    let breweryButtons = document.querySelectorAll('.prev-next-btn');
-    for (let btn of breweryButtons){
-        btn.remove()
+        // Remove the existing country information
+        const existingCountryContainer = document.querySelector('.country-info');
+        if (existingCountryContainer) {
+            existingCountryContainer.remove();
+        }
+
+        // Update favicon to display the flag of the country
+        const favicon = document.querySelector('link[rel="icon"]');
+        if (favicon) {
+            favicon.href = country.flags.svg; 
+        } else {
+            const newFavicon = document.createElement('link');
+            newFavicon.rel = 'icon';
+            newFavicon.href = country.flags.svg;
+            document.head.appendChild(newFavicon);
+        }
+    
+        // Create a container div to hold the country information
+        const countryContainer = document.createElement('div');
+        countryContainer.classList.add('container-fluid', 'country-info', 'justify-content-center', 'd-flex');
+
+        // Create a row div to hold the country information
+        const countryRow = document.createElement('div');
+        countryRow.classList.add('row', 'justify-content-center');
+
+        // Create a column div to hold the country information
+        const countryColumn = document.createElement('div');
+        countryColumn.classList.add('col-6', 'info');
+
+        // Create heading for country name
+        const countryNameHeading = document.createElement('h1');
+        countryNameHeading.textContent = country.name.common;
+        countryColumn.appendChild(countryNameHeading);
+
+        // Create IMG for country flag
+        const flagImg = document.createElement('img');
+        flagImg.src = country.flags.svg;
+        flagImg.alt = 'Flag of ' + country.name.common;
+        flagImg.id = 'countryFlag';
+        countryColumn.appendChild(flagImg);
+
+        // Create paragraph for official name
+        const officialNameParagraph = document.createElement('p');
+        officialNameParagraph.textContent = `Official Name: ${country.name.official}`;
+        countryColumn.appendChild(officialNameParagraph);
+
+        // Create paragraph for capital
+        const capitalParagraph = document.createElement('p');
+        capitalParagraph.textContent = `Capital: ${country.capital[0]}`;
+        countryColumn.appendChild(capitalParagraph);
+
+        // Create paragraph for official currency types
+        const currenciesHeading = document.createElement('h3');
+        currenciesHeading.textContent = 'Official Currency Types:';
+        countryColumn.appendChild(currenciesHeading);
+        const currenciesList = document.createElement('ul');
+        for (const currencyCode in country.currencies) {
+            const currencyItem = document.createElement('li');
+            currencyItem.textContent = `${country.currencies[currencyCode].name} (${currencyCode})`;
+            currenciesList.appendChild(currencyItem);
+        }
+        countryColumn.appendChild(currenciesList);
+
+        // Create paragraph for languages
+        const languagesHeading = document.createElement('h3');
+        languagesHeading.textContent = 'Languages:';
+        countryColumn.appendChild(languagesHeading);
+        const languagesList = document.createElement('ul');
+        for (const languageCode in country.languages) {
+            const languageItem = document.createElement('li');
+            languageItem.textContent = `${country.languages[languageCode]} (${languageCode})`;
+            languagesList.appendChild(languageItem);
+        }
+        countryColumn.appendChild(languagesList);
+
+        // Create IMG for country coat of arms
+        if (country.coatOfArms && country.coatOfArms.svg) {
+            const coatOfArmsImg = document.createElement('img');
+            coatOfArmsImg.src = country.coatOfArms.svg;
+            coatOfArmsImg.alt = 'Coat of Arms of ' + country.name.common;
+            coatOfArmsImg.id = 'coa';
+            countryColumn.appendChild(coatOfArmsImg);
+        }
+
+        // Create button to open Google Maps
+        const mapButton = document.createElement('button');
+        mapButton.textContent = 'View on Google Maps';
+        mapButton.classList.add('btn', 'btn-warning', 'mt-3', 'map-button');
+        mapButton.addEventListener('click', () => {
+            // Open Google Maps with the country's capital location
+            window.open(`https://www.google.com/maps/place/${country.capital[0]}`, '_blank');
+        });
+        countryColumn.appendChild(mapButton);
+
+        // Append the column to the row
+        countryRow.appendChild(countryColumn);
+
+        // Append the row to the country container
+        countryContainer.appendChild(countryRow);
+
+        // Append the country container to the main section of your HTML
+        const mainSection = document.querySelector('main');
+        mainSection.appendChild(countryContainer);
+    } else {
+        console.error('No country data found.');
+
+        // Remove the existing country information
+        const existingCountryContainer = document.querySelector('.country-info');
+        if (existingCountryContainer) {
+            existingCountryContainer.remove();
+        }
+
+        // Create a container div to hold the text
+        const countryContainer = document.createElement('div');
+        countryContainer.classList.add('container-fluid', 'country-info', 'justify-content-center', 'd-flex');
+
+        // Create a row div to hold the information
+        const countryRow = document.createElement('div');
+        countryRow.classList.add('row');
+
+        // Create a column div to hold the information
+        const countryColumn = document.createElement('div');
+        countryColumn.classList.add('col', 'info');
+
+        // Create heading for 'not found'
+        const countryNameHeading = document.createElement('h1');
+        countryNameHeading.textContent = 'Country not found.';
+        countryColumn.appendChild(countryNameHeading);
+
+        // Append the column to the row
+        countryRow.appendChild(countryColumn);
+
+        // Append the row to the country container
+        countryContainer.appendChild(countryRow);
+
+        // Append the country container to the main section of your HTML
+        const mainSection = document.querySelector('main');
+        mainSection.appendChild(countryContainer);
     }
-
-    if (!data.length){
-        table.innerHTML = '<h1>Country Not Found</h1>'
-        return
-    }
-
-    // Set up table headers
-    const thead = document.createElement('thead');
-    table.append(thead); // Add the thead as a child to the table
-    let tr = document.createElement('tr');
-    thead.append(tr); // add the table row as a child the table header
-    const tableHeadings = ['Name', 'Type', 'Street Address', 'Address 2', 'Address 3', 'City', 'State'];
-    tableHeadings.forEach( heading => {
-        let th = document.createElement('th');
-        th.scope = 'col';
-        th.innerHTML = heading;
-        tr.append(th)
-    } );
-
-    // Create the table body and populate with brewery data
-    let tbody = document.createElement('tbody');
-    table.append(tbody);
-
-    // Write a row for each brewery in data
-    for (let brewery of data){
-        let tr = document.createElement('tr');
-        tbody.append(tr);
-
-        newDataCell(tr, `<a href=${brewery.website_url} target="_blank">${brewery.name}</a>`)
-        newDataCell(tr, brewery.brewery_type);
-        newDataCell(tr, brewery.street);
-        newDataCell(tr, brewery.address_2);
-        newDataCell(tr, brewery.address_3);
-        newDataCell(tr, brewery.city);
-        newDataCell(tr, brewery.state);
-    }
-
-    // Add a next button if there are 10 breweries in the current data array
-    if (data.length === 10){
-        let nextButton = document.createElement('button');
-        nextButton.classList.add('prev-next-btn', 'btn', 'btn-primary');
-        nextButton.innerHTML = 'Next';
-        nextButton.addEventListener('click', e => findBreweries(e, pageNumber + 1))
-        table.after(nextButton);
-    }
-
-    // Add a prev button if the pageNumber > 1
-    if (pageNumber > 1){
-        let prevButton = document.createElement('button');
-        prevButton.classList.add('prev-next-btn', 'btn', 'btn-danger');
-        prevButton.innerHTML = 'Prev';
-        prevButton.addEventListener('click', e => findBreweries(e, pageNumber - 1))
-        table.after(prevButton);
-    }
-
 }
